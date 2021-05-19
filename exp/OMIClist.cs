@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -67,7 +68,9 @@ namespace exp
             string[] output = new string[len];
             for (int n =0; n < len; ++n)
             {
-                output[n] = list[n].ToString(format, colWidth);
+                OMIC o = list[n];
+                string currentOM = o.OMICid;
+                output[n] = o.ToString(format, colWidth);
             }
             return output;
         }

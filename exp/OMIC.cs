@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,8 +17,8 @@ namespace exp
 
         public string OMICid;
 
-        StickerCounts StickersOut;
-        StickerCounts StickersReturned;
+        public StickerCounts StickersOut;
+        public StickerCounts StickersReturned;
         
         public int UnitCount; //Box/combo count
         public char LoadStatus; //Partial or complete
@@ -35,6 +36,9 @@ namespace exp
             StickersReturned = new StickerCounts();
             StickersReturned.Partial = 0;
             StickersReturned.Other = 0;
+
+            DoorID = string.Empty;
+            Notes = string.Empty;
         }
 
         public override string ToString()

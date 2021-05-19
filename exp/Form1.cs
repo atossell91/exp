@@ -13,16 +13,18 @@ namespace exp
 {
     public partial class Form1 : Form
     {
+        OMIClist omList;
         List<Label> labels;
         public Form1()
         {
+            omList = new OMIClist();
             InitializeComponent();
         }
 
         void displayList(string[] lines)
         {
             labels = new List<Label>();
-            int lHeight = 100;
+            int lHeight = 40;
             foreach(string line in lines)
             {
                 Label l = new Label();
@@ -30,6 +32,7 @@ namespace exp
                 l.Location = new Point(5, lines.Length * lHeight);
                 l.Font = new Font("Microsoft sans serif", 14, FontStyle.Regular);
                 l.Text = line;
+                l.BorderStyle = BorderStyle.FixedSingle;
                 panel1.Controls.Add(l);
                 labels.Add(l);
             }
@@ -53,9 +56,19 @@ namespace exp
             ReleaseStickerDialog rsd = new ReleaseStickerDialog();
             if (rsd.ShowDialog() == DialogResult.OK)
             {
-                Debug.WriteLine("Dialog is ok");
+                if (!omList.AddRecord(rsd.OMIC))
+                {
+                    return;
+                }
+
+                Debug.WriteLine("Adding OMIC: " + rsd.OMIC);
+                OMIC o = omList.GetRecord(rsd.OMIC);
+                o.StickersOut.Other = rsd.StickersPrinted;
+                o.StickersOut.Partial = rsd.StickersPartial;
+                
             }
             rsd.Dispose();
+            displayList(omList.ListToString("OM", 10));
         }
     }
 }

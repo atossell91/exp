@@ -12,14 +12,30 @@ namespace exp
 {
     public partial class ReleaseStickerDialog : Form
     {
+        public string OMIC { private set; get; }
+        public int StickersPrinted { private set; get; }
+        public int StickersPartial { private set; get; }
         public ReleaseStickerDialog()
         {
             InitializeComponent();
         }
 
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        private void tb_OMIC_TextChanged(object sender, EventArgs e)
         {
+            TextBox tb = (TextBox)sender;
+            OMIC = tb.Text;
+        }
 
+        private void nud_Printed_ValueChanged(object sender, EventArgs e)
+        {
+            NumericUpDown nud = (NumericUpDown)sender;
+            StickersPrinted = (int)nud.Value;
+        }
+
+        private void nud_Partial_ValueChanged(object sender, EventArgs e)
+        {
+            NumericUpDown nud = (NumericUpDown)sender;
+            StickersPartial = (int)nud.Value;
         }
     }
 }
