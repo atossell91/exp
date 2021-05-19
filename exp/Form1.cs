@@ -27,12 +27,13 @@ namespace exp
             int lHeight = 40;
             foreach(string line in lines)
             {
-                Label l = new Label();
+                BoundLabel l = new BoundLabel();
                 l.Size = new Size(500, lHeight);
                 l.Location = new Point(5, lines.Length * lHeight);
                 l.Font = new Font("Microsoft sans serif", 14, FontStyle.Regular);
                 l.Text = line;
                 l.BorderStyle = BorderStyle.FixedSingle;
+                l.Click += label_click;
                 panel1.Controls.Add(l);
                 labels.Add(l);
             }
@@ -69,6 +70,10 @@ namespace exp
             }
             rsd.Dispose();
             displayList(omList.ListToString("OM", 10));
+        }
+        private void label_click(object sender, EventArgs e)
+        {
+
         }
     }
 }
