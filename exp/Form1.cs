@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -49,7 +50,12 @@ namespace exp
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            ReleaseStickerDialog rsd = new ReleaseStickerDialog();
+            if (rsd.ShowDialog() == DialogResult.OK)
+            {
+                Debug.WriteLine("Dialog is ok");
+            }
+            rsd.Dispose();
         }
     }
 }
