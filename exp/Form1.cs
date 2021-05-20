@@ -14,42 +14,40 @@ namespace exp
     public partial class Form1 : Form
     {
         OMIClist omList;
-        List<Label> labels;
+        List<BoundLabel> labels;
         public Form1()
         {
             omList = new OMIClist();
             InitializeComponent();
         }
 
-        void displayList(string[] lines)
+        void displayList()
         {
-            labels = new List<Label>();
-            int lHeight = 40;
-            foreach(string line in lines)
+            labels = new List<BoundLabel>();
+            int count = 0;
+            int labelHeight = 60;
+            foreach (OMIC om in omList)
             {
-                BoundLabel l = new BoundLabel();
-                l.Size = new Size(500, lHeight);
-                l.Location = new Point(5, lines.Length * lHeight);
-                l.Font = new Font("Microsoft sans serif", 14, FontStyle.Regular);
-                l.Text = line;
-                l.BorderStyle = BorderStyle.FixedSingle;
-                l.Click += label_click;
-                panel1.Controls.Add(l);
-                labels.Add(l);
+                BoundLabel bl = new BoundLabel();
+                bl.Location = new Point(0, count * labelHeight-(1*count));
+                bl.Font = new Font("Microsoft sans serif", 20, FontStyle.Regular);
+                bl.Size = new Size(500, labelHeight);
+                bl.TextAlign = ContentAlignment.MiddleLeft;
+                bl.Text = om.ToString("OM",10);
+                bl.BorderStyle = BorderStyle.FixedSingle;
+                bl.Data = om;
+                bl.Click += omicLabel_click;
+                panel1.Controls.Add(bl);
+                ++count;
             }
         }
         void removeLabels()
         {
-            foreach (Label l in labels)
+            foreach (BoundLabel l in labels)
             {
                 panel1.Controls.Remove(l);
                 labels.Remove(l);
             }
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -57,7 +55,7 @@ namespace exp
             ReleaseStickerDialog rsd = new ReleaseStickerDialog();
             if (rsd.ShowDialog() == DialogResult.OK)
             {
-                if (!omList.AddRecord(rsd.OMIC))
+                if (!omList.AddNewRecord(rsd.OMIC))
                 {
                     return;
                 }
@@ -68,12 +66,20 @@ namespace exp
                 o.StickersOut.Partial = rsd.StickersPartial;
                 
             }
+            displayList();
             rsd.Dispose();
-            displayList(omList.ListToString("OM", 10));
         }
-        private void label_click(object sender, EventArgs e)
+        private void omicLabel_click(object sender, EventArgs e)
         {
+            BoundLabel b = (BoundLabel)sender;
+            OMIC o = (OMIC)b.Data;
+            MessageBox.Show("Selection has " + o.StickersOut.Other + " stickers printed.");
+        }
 
+        private void BSaveLoad_Click(object sender, EventArgs e)
+        {
+            SaveLoadMenu svl = new SaveLoadMenu(omList);
+            svl.ShowDialog();
         }
     }
 }

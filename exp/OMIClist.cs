@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace exp
 {
-    public class OMIClist
+    public class OMIClist : IEnumerable<OMIC>
     {
         private List<OMIC> list;
 
@@ -17,6 +17,14 @@ namespace exp
             list = new List<OMIC>();
         }
         
+        public IEnumerator<OMIC> GetEnumerator()
+        {
+            return list.GetEnumerator();
+        }
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
         public int FindOMIC(string omic)
         {
             return list.FindIndex((a) => { return a.OMICid.Equals(omic); });
@@ -25,7 +33,7 @@ namespace exp
         {
             return FindOMIC(omic) >= 0;
         }
-        public bool AddRecord(string omic)
+        public bool AddNewRecord(string omic)
         {
             if (FindOMIC(omic) >= 0)
             {
@@ -34,6 +42,18 @@ namespace exp
 
             OMIC om = new OMIC(omic);
             list.Add(om);
+
+            return true;
+        }
+        public bool AddExistingRecord(OMIC omic)
+        {
+            string om = omic.OMICid;
+            if (omic == null || String.IsNullOrEmpty(om) || FindOMIC(om) >= 0)
+            {
+                return false;
+            }
+
+            list.Add(omic);
 
             return true;
         }

@@ -37,7 +37,9 @@ namespace exp
             StickersReturned.Partial = 0;
             StickersReturned.Other = 0;
 
-            DoorID = string.Empty;
+            LoadStatus = 'N';
+
+            DoorID = "NONE";// string.Empty;
             Notes = string.Empty;
         }
 

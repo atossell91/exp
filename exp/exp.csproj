@@ -65,6 +65,13 @@
     <Compile Include="ReleaseStickerDialog.Designer.cs">
       <DependentUpon>ReleaseStickerDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="SaveLoadMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SaveLoadMenu.Designer.cs">
+      <DependentUpon>SaveLoadMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StorageHandler.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -79,6 +86,9 @@
     </Compile>
     <EmbeddedResource Include="ReleaseStickerDialog.resx">
       <DependentUpon>ReleaseStickerDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SaveLoadMenu.resx">
+      <DependentUpon>SaveLoadMenu.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
