@@ -50,7 +50,7 @@ namespace exp
             }
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void B_ReleaseStick_Click(object sender, EventArgs e)
         {
             ReleaseStickerDialog rsd = new ReleaseStickerDialog();
             if (rsd.ShowDialog() == DialogResult.OK)
@@ -76,10 +76,33 @@ namespace exp
             MessageBox.Show("Selection has " + o.StickersOut.Other + " stickers printed.");
         }
 
-        private void BSaveLoad_Click(object sender, EventArgs e)
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveLoadMenu svl = new SaveLoadMenu(omList);
-            svl.ShowDialog();
+            SaveFileDialog sfd = new SaveFileDialog();        
+            if (sfd.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            StorageHandler sh = new StorageHandler();
+            sh.Save(sfd.FileName, omList);
+        }
+
+        private void LoadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            if (ofd.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            StorageHandler sh = new StorageHandler();
+            omList = sh.Load(ofd.FileName);
+            displayList();
+        }
+
+        private void B_ReceiveStick_Click(object sender, EventArgs e)
+        {
+            ReceiveStickerDialog rsd = new ReceiveStickerDialog();
+            rsd.ShowDialog();
         }
     }
 }

@@ -59,17 +59,17 @@
     <Compile Include="OMIClist.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReceiveStickerDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ReceiveStickerDialog.Designer.cs">
+      <DependentUpon>ReceiveStickerDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="ReleaseStickerDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ReleaseStickerDialog.Designer.cs">
       <DependentUpon>ReleaseStickerDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SaveLoadMenu.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="SaveLoadMenu.Designer.cs">
-      <DependentUpon>SaveLoadMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="StorageHandler.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -84,11 +84,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ReceiveStickerDialog.resx">
+      <DependentUpon>ReceiveStickerDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ReleaseStickerDialog.resx">
       <DependentUpon>ReleaseStickerDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="SaveLoadMenu.resx">
-      <DependentUpon>SaveLoadMenu.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

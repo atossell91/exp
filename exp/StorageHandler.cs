@@ -20,7 +20,7 @@ namespace exp
         }
         XmlElement OmicToXElem(OMIC om, XmlDocument doc)
         {
-            XmlElement elOmic = doc.CreateElement("Test");
+            XmlElement elOmic = doc.CreateElement("Truck");
             elOmic.SetAttribute("OMIC", om.OMICid);
 
             XmlElement xml_StickOut = CreateAndAppendElement("StickersOut", "", elOmic, doc);
@@ -83,7 +83,7 @@ namespace exp
             OMIClist list = new OMIClist();
             XmlDocument doc = new XmlDocument();
             doc.Load(filepath);
-            XmlNodeList omicsList = doc.SelectNodes("/exports/Test");
+            XmlNodeList omicsList = doc.SelectNodes("/exports/Truck");
             foreach (XmlNode omic in omicsList)
             {
                 string id = omic.Attributes.GetNamedItem("OMIC").InnerText;
