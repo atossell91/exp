@@ -50,7 +50,34 @@ namespace exp
             }
             doc.Save(filepath);
         }
-        
+        string ExtractValue(XmlNode node, string xpath)
+        {
+            return node.SelectSingleNode(xpath).InnerText;
+        }
+        void setIntValue(ref int value, string s)
+        {
+            if (!int.TryParse(s, out value))
+            {
+                Debug.WriteLine("Integer parse error");
+                value = 0;
+            }
+        }
+        void setCharValue(ref char value, string s)
+        {
+            if (!char.TryParse(s, out value))
+            {
+                Debug.WriteLine("Character parse error");
+                value = char.MinValue;
+            }
+        }
+        void setFloatValue(ref float value, string s)
+        {
+            if (!float.TryParse(s, out value))
+            {
+                Debug.WriteLine("Float parse error.");
+                value = 0f;
+            }
+        }
         public OMIClist Load(string filepath)
         {
             OMIClist list = new OMIClist();
@@ -59,10 +86,19 @@ namespace exp
             XmlNodeList omicsList = doc.SelectNodes("/exports/Test");
             foreach (XmlNode omic in omicsList)
             {
-                Debug.WriteLine(omic.Attributes[0].InnerText);
-                //Debug.WriteLine("Node: " + node.Attributes[0].InnerText);
-                XmlNode s = omic.SelectSingleNode("StickersOut/Other");
-                Debug.WriteLine("Stickers: " + s.InnerText);
+                string id = omic.Attributes.GetNamedItem("OMIC").InnerText;
+                OMIC record = new OMIC(id);
+
+                setIntValue(ref record.StickersOut.Other, ExtractValue(omic,"StickersOut/Other"));
+                setIntValue(ref record.StickersOut.Partial, ExtractValue(omic,"StickersOut/Partial"));
+                setIntValue(ref record.StickersReturned.Other, ExtractValue(omic,"StickersIn/Other"));
+                setIntValue(ref record.StickersReturned.Partial, ExtractValue(omic,"StickersIn/Partial"));
+                setIntValue(ref record.UnitCount, ExtractValue(omic,"UnitCount"));
+                setCharValue(ref record.LoadStatus, ExtractValue(omic, "LoadStatus"));
+                record.DoorID = ExtractValue(omic, "DoorID");
+                setFloatValue(ref record.TotalWeight, ExtractValue(omic, "TotalWeight"));
+
+                list.AddExistingRecord(record);
             }
             return list;
         }
