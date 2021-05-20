@@ -101,7 +101,7 @@ namespace exp
 
         private void B_ReceiveStick_Click(object sender, EventArgs e)
         {
-            ReceiveStickerDialog rsd = new ReceiveStickerDialog();
+            ReceiveStickerDialog rsd = new ReceiveStickerDialog(omList);
             rsd.ShowDialog();
         }
     }

@@ -78,9 +78,14 @@ namespace exp
         {
             return list.Count;
         }
-        public List<OMIC> Filter(Predicate<OMIC> p)
+        public OMIClist Filter(Predicate<OMIC> p)
         {
-            return list.FindAll(p);
+            List<OMIC> l = list.FindAll(p);
+            OMIClist oml = new OMIClist();
+            foreach (OMIC o in l) {
+                oml.AddExistingRecord(o);
+            }
+            return oml;
         }
         public string[] ListToString(string format, int colWidth)
         {

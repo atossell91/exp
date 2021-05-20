@@ -54,29 +54,35 @@ namespace exp
         {
             return node.SelectSingleNode(xpath).InnerText;
         }
-        void setIntValue(ref int value, string s)
+        int ExtractIntValue(string s)
         {
+            int value;
             if (!int.TryParse(s, out value))
             {
                 Debug.WriteLine("Integer parse error");
                 value = 0;
             }
+            return value;
         }
-        void setCharValue(ref char value, string s)
+        char ExtractCharValue(string s)
         {
+            char value;
             if (!char.TryParse(s, out value))
             {
                 Debug.WriteLine("Character parse error");
                 value = char.MinValue;
             }
+            return value;
         }
-        void setFloatValue(ref float value, string s)
+        float ExtractFloatValue(string s)
         {
+            float value;
             if (!float.TryParse(s, out value))
             {
                 Debug.WriteLine("Float parse error.");
                 value = 0f;
             }
+            return value;
         }
         public OMIClist Load(string filepath)
         {
@@ -89,14 +95,14 @@ namespace exp
                 string id = omic.Attributes.GetNamedItem("OMIC").InnerText;
                 OMIC record = new OMIC(id);
 
-                setIntValue(ref record.StickersOut.Other, ExtractValue(omic,"StickersOut/Other"));
-                setIntValue(ref record.StickersOut.Partial, ExtractValue(omic,"StickersOut/Partial"));
-                setIntValue(ref record.StickersReturned.Other, ExtractValue(omic,"StickersIn/Other"));
-                setIntValue(ref record.StickersReturned.Partial, ExtractValue(omic,"StickersIn/Partial"));
-                setIntValue(ref record.UnitCount, ExtractValue(omic,"UnitCount"));
-                setCharValue(ref record.LoadStatus, ExtractValue(omic, "LoadStatus"));
-                record.DoorID = ExtractValue(omic, "DoorID");
-                setFloatValue(ref record.TotalWeight, ExtractValue(omic, "TotalWeight"));
+                record.StickersOut.Other = ExtractIntValue(ExtractValue(omic,"StickersOut/Other"));
+                record.StickersOut.Partial = ExtractIntValue(ExtractValue(omic,"StickersOut/Partial"));
+                record.StickersReturned.Other = ExtractIntValue(ExtractValue(omic,"StickersIn/Other"));
+                record.StickersReturned.Partial = ExtractIntValue(ExtractValue(omic,"StickersIn/Partial"));
+                record.UnitCount = ExtractIntValue(ExtractValue(omic,"UnitCount"));
+                record.LoadStatus = ExtractCharValue(ExtractValue(omic, "LoadStatus"));
+                record.DoorID = record.DoorID = ExtractValue(omic, "DoorID");
+                record.TotalWeight = ExtractFloatValue(ExtractValue(omic, "TotalWeight"));
 
                 list.AddExistingRecord(record);
             }

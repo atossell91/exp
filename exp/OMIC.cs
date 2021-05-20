@@ -13,6 +13,17 @@ namespace exp
         {
             public int Partial;
             public int Other;
+
+            public StickerCounts()
+            {
+                Partial = 0;
+                Other = 0;
+            }
+
+            public int Total()
+            {
+                return Other + Partial;
+            }
         }
 
         public string OMICid;
@@ -30,12 +41,8 @@ namespace exp
         {
             OMICid = omic;
             StickersOut = new StickerCounts();
-            StickersOut.Partial = 0;
-            StickersOut.Other = 0;
 
             StickersReturned = new StickerCounts();
-            StickersReturned.Partial = 0;
-            StickersReturned.Other = 0;
 
             LoadStatus = 'N';
 
